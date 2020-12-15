@@ -16,10 +16,8 @@ jobs:
   integration_test:
     runs-on: ubuntu-latest
     container:
-      image: zmkfirmware/zmk-build-arm:2.3
+      image: zmkfirmware/zmk-build-arm:2.4
     steps:
-      # To use this repository's private action,
-      # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v2
       - name: Cache west modules
@@ -32,19 +30,17 @@ jobs:
             tools/
             zephyr/
             bootloader/
-          key: 3-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('app/west.yml') }}
+          key: 4-${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('app/west.yml') }}
           restore-keys: |
-            3-${{ runner.os }}-build-${{ env.cache-name }}-
-            3-${{ runner.os }}-build-
-            3-${{ runner.os }}-
+            4-${{ runner.os }}-build-${{ env.cache-name }}-
+            4-${{ runner.os }}-build-
+            4-${{ runner.os }}-
         timeout-minutes: 2
         continue-on-error: true
       - name: West init
         run: west init -l app
       - name: West update
         run: west update
-      - name: West config Zephyr base
-        run: west config --global zephyr.base-prefer configfile
       - name: West Zephyr export
         run: west zephyr-export
       - name: Test all
