@@ -8,7 +8,7 @@
 #include <nordic/nrf52840_qiaa.dtsi>
 #include <dt-bindings/zmk/matrix-transform.h>
 / {
-	model = "CYBER60_A";
+	model = "CYBER60_REV_A";
 	compatible = "cyber60", "Rev A";
 
 	chosen {
