@@ -4,6 +4,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+// Rotary A: P0.10
+// Rotary B: P0.09
+// Underglow data: P0.31 
+// EXT VCC PIN: P0.07
+// Buzzer Pin: P0.29
+
 /dts-v1/;
 #include <nordic/nrf52840_qiaa.dtsi>
 #include <dt-bindings/zmk/matrix-transform.h>
@@ -18,7 +24,7 @@
 		zmk,kscan = &kscan0;
 		zmk,matrix_transform = &default_transform;
 	};
-// change
+// Test this!
 	vbatt {
 		compatible = "zmk,battery-voltage-divider";
 		label = "BATTERY";
