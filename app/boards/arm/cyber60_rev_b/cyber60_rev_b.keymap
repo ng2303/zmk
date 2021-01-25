@@ -23,6 +23,7 @@
 	&kp LCTL 	 &kp LGUI   &kp LALT				&kp RALT			&mo FN1		&kp  SPC  	&kp  RALT			&kp  RGUI 	&kp K_APP	&kp  RCTL	
 	&none	
 			>;
+
 		};
 		base_layer_win {
 // Base layer with ctrl at backspace position
@@ -41,6 +42,7 @@
 	&kp LCTL 	 &kp LGUI   &kp   LALT				&kp RALT			&mo FN1		&kp  SPC  	&kp  RALT			&kp  RGUI 	&kp K_APP	&kp  RCTL		
 	&none
 			>;
+
 		};
 		gaming_layer {
 // Gaming layer with regular space and no gui
@@ -59,6 +61,7 @@
 	&kp LCTL 	 &none   	&kp   LALT				&kp SPC		&mo FN1		&kp  SPC  	&kp  RALT			&kp  RGUI 	&kp K_APP	&kp  RCTL	
 	&none	
 			>;
+			//sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>; // rotary binding
 		};
 		settings_layer {
 // Settings layer to change keyboard behaviour
@@ -77,6 +80,7 @@
 	&none	&none    	&none							&none			&none			&none  			&none			&none 	&none	&none	
 	&none	
 			>;
+
 		};
 		fn_layer {
 // Function layer
@@ -95,6 +99,7 @@
 	&trans 			&trans   	&trans             				&trans			&trans			&trans  		&trans  		&trans			&trans			&trans		
 	&none
 			>;
+
 		};
 	};
 };
