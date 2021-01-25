@@ -4,9 +4,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-// Rotary A: P0.10
-// Rotary B: P0.09
-// Underglow data: P0.31 
 // Buzzer Pin: P0.29
 
 /dts-v1/;
@@ -24,20 +21,28 @@
 		zmk,matrix_transform = &default_transform;
 		zmk,underglow = &led_strip;
 	};
+
 	vbatt {
 		compatible = "zmk,battery-voltage-divider";
 		label = "BATTERY";
-		io-channels = <&adc 1>; // double check
+		io-channels = <&adc 1>;
 		output-ohms = <2000000>;
 		full-ohms = <(1000000 + 2000000)>;
 	};
 
-	led_strip: ws2812 {
-		compatible = "worldsemi,ws2812-gpio";
-		label = "WS2812";
-		in-gpios = <&gpio0 31 GPIO_ACTIVE_LOW>;
-		chain-length = <16>;
+	sensors {
+    	compatible = "zmk,keymap-sensors";
+    	sensors = <&encoder>;
 	};
+
+	encoder: encoder_1 {
+        compatible = "alps,ec11";
+        label = "ENCODER";
+        a-gpios = <&gpio0 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&gpio0 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        resolution = <2>;
+    };
+
 	leds {
 		compatible = "gpio-leds";
 		red_led: led_3 {
@@ -58,13 +63,12 @@
 		label = "EXT_POWER";
 		control-gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
 	};
-// add rotary stuff
+
 	default_transform: keymap_transform_0 {
 		compatible = "zmk,matrix-transform";
 		columns = <11>;
 		rows = <6>;
 		map = <
-		// Test this! (row, col)
 RC(0,0) RC(1,0) RC(0,1) RC(1,1) RC(0,2) RC(1,2) RC(0,3) RC(1,3) RC(0,4) RC(1,4) RC(0,5) RC(1,5) RC(0,6) RC(1,6) RC(3,6)
 RC(2,0) RC(3,0) RC(2,1) RC(3,1) RC(2,2) RC(3,2) RC(2,3) RC(3,3) RC(2,4) RC(3,4) RC(2,5) RC(3,5) RC(2,6) RC(5,6)
 RC(4,0) RC(5,0) RC(4,1) RC(5,1) RC(4,2) RC(5,2) RC(4,3) RC(5,3) RC(4,4) RC(5,4) RC(4,5) RC(5,5)  RC(4,6) RC(7,6)
@@ -73,7 +77,6 @@ RC(8,0) RC(9,0) RC(8,1) RC(9,1) RC(8,3) RC(9,3) RC(8,4) RC(9,4) RC(8,5)  RC(9,5)
 RC(9,6) // rotary sw
 		>;
 	};
-// updated with new matrix
 	kscan0: kscan {
 		compatible = "zmk,kscan-gpio-matrix";
 		label = "KSCAN";
@@ -117,6 +120,30 @@ RC(9,6) // rotary sw
 
 &usbd {
 	status = "okay";
+};
+
+&spi0 {
+	// Underglow data: P0.31 
+  compatible = "nordic,nrf-spim";
+  status = "okay";
+  mosi-pin = <31>;
+  // Unused pins, needed for SPI definition, but not used by the ws2812 driver itself.
+  sck-pin = <6>;
+  miso-pin = <8>;
+
+  led_strip: ws2812@0 {
+    compatible = "worldsemi,ws2812-spi";
+    label = "WS2812";
+
+    /* SPI */
+    reg = <0>; /* ignored, but necessary for SPI bindings */
+    spi-max-frequency = <4000000>;
+
+    /* WS2812 */
+    chain-length = <16>; /* number of LEDs */
+    spi-one-frame = <0x70>;
+    spi-zero-frame = <0x40>;
+  };
 };
 
 &flash0 {
