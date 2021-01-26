@@ -3,7 +3,7 @@
 
 if BOARD_CYBER60_REV_A
 
-config BOARD
+config ZMK_KEYBOARD_NAME
 	default "cyber60 Rev A"
 
 if USB
