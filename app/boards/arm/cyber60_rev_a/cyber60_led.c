@@ -37,7 +37,7 @@ static int pwr_led_init(const struct device *dev) {
 		return -EIO;
 	}
 
-	return gpio_pin_set(dev, PIN, true); // set to false so no constant battery drain, just testing for now
+	return gpio_pin_set(dev, PIN, false); // set to false so no constant battery drain, just testing for now
 }
 
 SYS_INIT(pwr_led_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
