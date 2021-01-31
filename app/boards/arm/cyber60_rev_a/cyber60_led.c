@@ -10,7 +10,7 @@
 #include <drivers/gpio.h>
 
 /* The devicetree node identifier for the "led0" alias. */
-#define LED_NODE DT_ALIAS(ledblue)
+#define LED_NODE DT_ALIAS(ledgreen)
 
 #if DT_NODE_HAS_STATUS(LED_NODE, okay)
 #define LED DT_GPIO_LABEL(LED_NODE, gpios)
@@ -37,7 +37,7 @@ static int pwr_led_init(const struct device *dev) {
 		return -EIO;
 	}
 
-	return gpio_pin_set(dev, PIN, true); // set to false so no constant battery drain, just testing for now
+	return gpio_pin_set(dev, PIN, false); // set to false so no constant battery drain, just testing for now
 }
 
 SYS_INIT(pwr_led_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
