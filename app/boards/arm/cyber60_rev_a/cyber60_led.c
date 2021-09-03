@@ -5,9 +5,9 @@
  */
 
 #include <zephyr.h>
-#include <device.h>
+//#include <device.h>
 #include <devicetree.h>
-#include <drivers/gpio.h>
+//#include <drivers/gpio.h>
 
 /* The devicetree node identifier for the "led0" alias. */
 #define LED_NODE DT_ALIAS(ledgreen)
@@ -32,12 +32,12 @@ static int pwr_led_init(const struct device *dev) {
 		return -EIO;
 	}
 
-	ret = gpio_pin_configure(dev, PIN, GPIO_OUTPUT | FLAGS);
+	ret = 0;//gpio_pin_configure(dev, PIN, GPIO_OUTPUT | FLAGS);
 	if (ret < 0) {
 		return -EIO;
 	}
 
-	return gpio_pin_set(dev, PIN, false); // set to false so no constant battery drain, just testing for now
+	return 0;//gpio_pin_set(dev, PIN, false); // set to false so no constant battery drain, just testing for now
 }
 
 SYS_INIT(pwr_led_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
