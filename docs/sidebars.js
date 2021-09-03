@@ -14,6 +14,7 @@ module.exports = {
       "features/displays",
       "features/encoders",
       "features/underglow",
+      "features/beta-testing",
     ],
     Behaviors: [
       "behaviors/key-press",
@@ -21,6 +22,7 @@ module.exports = {
       "behaviors/misc",
       "behaviors/hold-tap",
       "behaviors/mod-tap",
+      "behaviors/mod-morph",
       "behaviors/sticky-key",
       "behaviors/sticky-layer",
       "behaviors/reset",
@@ -49,6 +51,7 @@ module.exports = {
       "development/posix-board",
       "development/tests",
       "development/usb-logging",
+      "development/ide-integration",
       {
         type: "category",
         label: "Guides",

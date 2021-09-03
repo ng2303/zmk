@@ -13,6 +13,10 @@ computer/laptop/keyboard should receive the keyboard input; many of the commands
 Please note there are only five available Bluetooth profiles by default. If you need to increase the number of available profiles you can set `CONFIG_BT_MAX_CONN` in your `zmk-config` `.conf` file.
 :::
 
+:::note Connection Management
+A ZMK device may show as "connected" on multiple hosts at the same time. This is working as intended, and only the host associated with the active profile will receive keystrokes.
+:::
+
 ## Bluetooth Command Defines
 
 Bluetooth command defines are provided through the [`dt-bindings/zmk/bt.h`](https://github.com/zmkfirmware/zmk/blob/main/app/include/dt-bindings/zmk/bt.h) header,
@@ -80,5 +84,5 @@ ZMK support bluetooth “profiles” which allows connection to multiple devices
 The bluetooth MAC address and negotiated keys during pairing are stored in the permanent storage on your chip and can be reused even after reflashing the firmware. If for some reason you want to delete the stored information, you can bind the `BT_CLR` behavior described above to a key and use it to clear the _current_ profile.
 
 :::note
-If you clear bond of a paired profile, make sure you do the same thing on the peer device as well (typically achieved by _removing_ or _forgetting_ the bluetooth connection). Otherwise the peer will try to connect to your keyboard whenever it discovers it. But while the MAC address of both devices could remain the same, the security key no longer match: the peer device still possess the old key negotiated in the previous pairing procedure, but our keyboard firmware has deleted that key. So the connection will fail. If you [enabled USB logging](../development/usb-logging), you might see a lot of failed connection attempts due to the reason of “Security failed”.
+If you clear bond of a paired profile, make sure you do the same thing on the peer device as well (typically achieved by _removing_ or _forgetting_ the bluetooth connection). Otherwise the peer will try to connect to your keyboard whenever it discovers it. But while the MAC address of both devices could remain the same, the security key no longer match: the peer device still possess the old key negotiated in the previous pairing procedure, but our keyboard firmware has deleted that key. So the connection will fail. If you [enabled USB logging](../development/usb-logging.md), you might see a lot of failed connection attempts due to the reason of “Security failed”.
 :::
