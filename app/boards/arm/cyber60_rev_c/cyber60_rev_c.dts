@@ -165,10 +165,10 @@ RC(9,6) // rotary sw
 	// Underglow data: P0.04 
   compatible = "nordic,nrf-spim";
   status = "okay";
-  mosi-pin = <31>; //UPDATE THIS!
+  mosi-pin = <4>;
   // Unused pins, needed for SPI definition, but not used by the ws2812 driver itself.
-  sck-pin = <6>; //UPDATE THIS!
-  miso-pin = <8>; //UPDATE THIS!
+  sck-pin = <6>;
+  miso-pin = <8>;
 
   led_strip: ws2812@0 {
     compatible = "worldsemi,ws2812-spi";
