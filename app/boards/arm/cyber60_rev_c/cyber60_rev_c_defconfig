@@ -41,3 +41,6 @@ CONFIG_ZMK_SLEEP=n
 
 # Enable RGB bluetooth profile indicator
 # CONFIG_PROFILE_INDICATOR=y
+
+# Turn on logging, and set ZMK logging to debug output
+CONFIG_ZMK_USB_LOGGING=y

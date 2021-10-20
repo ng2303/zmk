@@ -72,20 +72,24 @@ void reset_leds()
         }
         gpio_pin_set(dev, leds[i].pin, false);
     }
+    LOG_INF("reset leds\n");
 }
 
 void set_led(size_t index)
 {
     const struct device *dev = device_get_binding(leds[index].name);
     if (dev == NULL) {
+        LOG_INF("DEVICE BINDING = NULL!\n");
         return;
     }
     gpio_pin_set(dev, leds[index].pin, true);
+    LOG_INF("set leds\n");
 }
 
 
 void led_work_handler(struct k_work *work) {
     reset_leds();
+    LOG_INF("led work handler\n");
 }
 
 K_WORK_DEFINE(led_work, led_work_handler);
@@ -93,6 +97,7 @@ K_WORK_DEFINE(led_work, led_work_handler);
 void led_expiry_function()
 {
     k_work_submit(&led_work);
+    LOG_INF("led expire\n");
 }
 
 K_TIMER_DEFINE(led_timer, led_expiry_function, NULL);
@@ -104,6 +109,8 @@ int led_listener(const zmk_event_t *eh)
     k_timer_stop(&led_timer);
 
     reset_leds();
+    set_led(BLUE);
+
     switch(index) {
     case 0:
         set_led(RED);
@@ -126,7 +133,8 @@ int led_listener(const zmk_event_t *eh)
         break;
     }
     k_timer_start(&led_timer, K_SECONDS(3), K_SECONDS(3));
-
+    LOG_INF("led listener, index: ");
+    //LOG_INF(index);
     return ZMK_EV_EVENT_BUBBLE;
 }
 
