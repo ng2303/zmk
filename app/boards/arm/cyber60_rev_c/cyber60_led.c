@@ -82,8 +82,11 @@ void set_led(size_t index)
         LOG_INF("DEVICE BINDING = NULL!\n");
         return;
     }
-    gpio_pin_set(dev, leds[index].pin, true);
-    LOG_INF("set leds\n");
+    int error = gpio_pin_set(dev, leds[index].pin, true);
+    if(!error){
+        LOG_INF("COULD SET GPIO\n");
+    }
+    LOG_INF("set led\n", index);
 }
 
 
@@ -133,7 +136,7 @@ int led_listener(const zmk_event_t *eh)
         break;
     }
     k_timer_start(&led_timer, K_SECONDS(3), K_SECONDS(3));
-    LOG_INF("led listener, index: ");
+    LOG_INF("led listener, index: ", index);
     //LOG_INF(index);
     return ZMK_EV_EVENT_BUBBLE;
 }
